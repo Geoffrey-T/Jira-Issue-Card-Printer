@@ -22,8 +22,10 @@ var getSelectedIssueKeyList = function () {
     if (selectedIssueMatch) {
         selectedIssue = document.URL.match(/.*selectedIssue=([^&]*).*/)[1];
     }
-
-    var selectedIssues = $(`div.ibjHYw`)
+    var selectedIssues = $("div[class^='sc-']")
+                .filter(function() {
+                  return $(this).css('background-color') == 'rgb(222, 235, 255)';
+                })
                .map(function () {
                    let testIdString = $(this).parent().data("test-id").split(".");
                    return testIdString[testIdString.length-1];
