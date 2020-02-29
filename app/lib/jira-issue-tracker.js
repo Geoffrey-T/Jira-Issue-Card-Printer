@@ -30,14 +30,11 @@ var getSelectedIssueKeyList = function () {
 
         // Backlog
         if (/.*\/jira\/software\/projects\/.*\/backlog($|\?).*/g.test(document.URL)) {
-            var selectedIssues = $(`div[tabindex]`)
-                .filter(function () {
-                    return $(this).css('background-color') == 'rgb(222, 235, 255)'
-                        || $(this).css('background-color') == 'rgb(255, 189, 173)';
-                })
-                .map(function () {
-                    return $(this).find('> a').text();
-                });
+            var selectedIssues = jQuery(`div.ibjHYw`)
+               .map(function () {
+                   let testIdString = jQuery(this).parent().data("test-id").split(".");
+                   return testIdString[testIdString.length-1];
+               });
             return selectedIssues.length ? selectedIssues : selectedIssue ? [selectedIssue] : [];
         }
 
