@@ -1,8 +1,6 @@
 var global = {};
 
 require('./lib/polyfill');
-require('./lib/google-analytics');
-ga('create', 'UA-50840116-3', {'alwaysSendReferrer': true});
 
 var fs = require('fs');
 var $ = require('jquery');
@@ -141,7 +139,6 @@ var loadSettings = function () {
 }
 
 var print = function () {
-    ga('send', 'event', 'button', 'click', 'print', $(".card", global.printFrame.contentWindow.document).length);
     global.printFrame.contentWindow.focus();
     global.printFrame.contentWindow.print();
 }
@@ -736,10 +733,6 @@ var handleError = function (error) {
     error = error2object(error);
     error = JSON.stringify(error);
     console.log("ERROR " + error);
-    ga('send', 'exception', {
-        'exDescription': APP.version + " - " + document.location.host + "\n" + error,
-        'exFatal': true
-    });
     // closePrintPreview();
     alert("Sorry something went wrong\n\nPlease create an issue with following details at\n" + global.issueTrackingUrl + "\n\n" + error);
 }
