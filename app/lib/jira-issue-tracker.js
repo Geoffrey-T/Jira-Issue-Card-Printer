@@ -22,10 +22,10 @@ var getSelectedIssueKeyList = function () {
     if (selectedIssueMatch) {
         selectedIssue = document.URL.match(/.*selectedIssue=([^&]*).*/)[1];
     }
-    
-    var selectedIssues = jQuery(`div.ibjHYw`)
+
+    var selectedIssues = $(`div.ibjHYw`)
                .map(function () {
-                   let testIdString = jQuery(this).parent().data("test-id").split(".");
+                   let testIdString = $(this).parent().data("test-id").split(".");
                    return testIdString[testIdString.length-1];
                });
     return selectedIssues.length ? selectedIssues : selectedIssue ? [selectedIssue] : [];
@@ -75,7 +75,7 @@ var getCardData = function (issueKey) {
         issueData.description = data.renderedFields.description;
         issueData.labels = data.fields.labels || [];
         issueData.labels = issueData.labels.concat(data.fields.components.map(component => component.name));
-         
+
         if (data.fields.assignee) {
             issueData.assignee = data.fields.assignee.displayName.replace(/\[[^[]*\]/, '');
             var avatarUrl = data.fields.assignee.avatarUrls['48x48'];
