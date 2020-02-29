@@ -451,7 +451,6 @@ var renderCards = function (issueKeyList) {
 
         promises.push(global.appFunctions.getCardData(issueKey).then(function (cardData) {
             // console.log("cardData: " + JSON.stringify(cardData,2,2));
-            ga('send', 'event', 'card', 'generate', cardData.type);
             fillCard(card, cardData);
             redrawCards();
         }));
@@ -669,10 +668,7 @@ var main = function (issueTrackers) {
         return Promise.resolve();
     } else {
         console.log("Issue Tracker: " + global.appFunctions.name);
-        ga('set', 'page', '/cardprinter');
     }
-
-    ga('send', 'pageview');
 
     // add overlay frame
     var appFrame = createOverlayFrame();
@@ -743,7 +739,3 @@ try {
 } catch (e) {
     handleError(e);
 }
-
-
-
-
