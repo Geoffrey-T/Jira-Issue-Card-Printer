@@ -1,15 +1,15 @@
 #!/bin/sh
 set -e
 
-if [ $# -lt 1 ]
-then
-    echo "Usage: ... <SOURCE_FOLDER> <TARGET_BRANCH> <TARGET_REPO> <TARGET_BRANCH_REWRITE>"
-    exit 1
-fi
+# if [ $# -lt 1 ]
+# then
+#     echo "Usage: ... <SOURCE_FOLDER> <TARGET_BRANCH> <TARGET_REPO> <TARGET_BRANCH_REWRITE>"
+#     exit 1
+# fi
 
-SOURCE_FOLDER="$1"
-TARGET_BRANCH="${2:-'gh-pages'}"
-TARGET_REPO="${3:-"$(git config --get remote.origin.url)"}"
+SOURCE_FOLDER="dist/"
+TARGET_BRANCH="gh-pages"
+TARGET_REPO="$(git config --get remote.origin.url)"
 TARGET_BRANCH_REWRITE="${4:-'false'}"
 COMMIT_MESSAGE="$(git log -1 --format='%s')"
 COMMIT_DETAILS="repository $(git config --get remote.origin.url)"$'\n'"$(git log -1 --format='commit %h%nAuthor: %an <%ae>%nDate:  %ad')"
@@ -31,11 +31,11 @@ echo '--- Commit Changes'
     export GIT_WORK_TREE="${target_repo_dir}"
     git rm -rf . --quiet
   )
-  git add . 
+  git add .
   if git commit --quiet -am "${COMMIT_MESSAGE}" -m "${COMMIT_DETAILS}"
   then
       git show --name-status --format=format:
-      
+
       echo ''
       echo '--- Push Changes'
       if [ "$TARGET_BRANCH_REWRITE" != 'rewrite' ]
